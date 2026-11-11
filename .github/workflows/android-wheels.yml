@@ -66,12 +66,19 @@ jobs:
           DEPS_DIR: ${{ runner.temp }}/deps
           PKG_ENVIRONMENT: ${{ matrix.environment }}
           PKG_CONFIG_SETTINGS: ${{ matrix.config_settings }}
+          PKG_BEFORE_ALL: ${{ matrix.before_all }}
+          PKG_PREPARE: ${{ matrix.prepare }}
+          HNA_PACKAGE: ${{ matrix.name }}
           CIBW_BUILD: "cp314-*"
           CIBW_TEST_SKIP: "*"
           CIBW_BUILD_VERBOSITY: "1"
         run: |
           if [ -n "$PKG_ENVIRONMENT" ]; then export CIBW_ENVIRONMENT_ANDROID="$PKG_ENVIRONMENT"; fi
           if [ -n "$PKG_CONFIG_SETTINGS" ]; then export CIBW_CONFIG_SETTINGS="$PKG_CONFIG_SETTINGS"; fi
+          if [ -n "$PKG_BEFORE_ALL" ]; then export CIBW_BEFORE_ALL="$PKG_BEFORE_ALL"; fi
+          if [ "$PKG_PREPARE" = "true" ]; then
+            export CIBW_BEFORE_BUILD="sh $GITHUB_WORKSPACE/scripts/android_before_build.sh"
+          fi
           set -o pipefail
           pipx run "cibuildwheel==$CIBUILDWHEEL_VERSION" --platform android --archs "${{ matrix.arch }}" \
             --output-dir wheelhouse "$RUNNER_TEMP/src" 2>&1 | tee "$RUNNER_TEMP/build.log"

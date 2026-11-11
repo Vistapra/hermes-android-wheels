@@ -18,5 +18,7 @@ for pkg in cfg["packages"]:
             "deps": " ".join(pkg.get("deps", [])),
             "environment": pkg.get("environment", ""),
             "config_settings": pkg.get("config_settings", ""),
+            "prepare": bool(pkg.get("prepare")),
+            "before_all": pkg.get("before_all", ""),
         })
 print("include=" + json.dumps(include, separators=(",", ":")))

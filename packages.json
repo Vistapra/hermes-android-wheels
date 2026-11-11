@@ -3,59 +3,106 @@
   "python": "3.14",
   "android_api_level": "24",
   "archs": [
-    {"arch": "arm64_v8a", "triplet": "aarch64-linux-android", "rust_target": "aarch64-linux-android"},
-    {"arch": "x86_64", "triplet": "x86_64-linux-android", "rust_target": "x86_64-linux-android"}
+    {
+      "arch": "arm64_v8a",
+      "triplet": "aarch64-linux-android",
+      "rust_target": "aarch64-linux-android"
+    },
+    {
+      "arch": "x86_64",
+      "triplet": "x86_64-linux-android",
+      "rust_target": "x86_64-linux-android"
+    }
   ],
   "packages": [
     {
-      "name": "pydantic-core", "version": "2.50.1", "tier": 1, "rust": true,
+      "name": "pydantic-core",
+      "version": "2.50.1",
+      "tier": 1,
+      "rust": true,
       "sdist": "https://files.pythonhosted.org/packages/a6/24/af4ec4be49fbc810f35b0bdcacc3d433b56bbfa469fd3bfd4ae116cd9bf1/pydantic_core-2.50.1.tar.gz",
       "sha256": "e50d7b94baac6c7d09927fa5ca5800a0c7ee5015c7fcff65beb3a1931b5a6e09"
     },
     {
-      "name": "jiter", "version": "0.17.0", "tier": 1, "rust": true,
+      "name": "jiter",
+      "version": "0.17.0",
+      "tier": 1,
+      "rust": true,
       "sdist": "https://files.pythonhosted.org/packages/9c/1f/8176d92e001f86505424b41664032ae26a882bc9ca41a32c803f373f9195/jiter-0.17.0.tar.gz",
       "sha256": "03e432f226a453851079fb84cd17c6da9991eab723e28d716f14ae3d906e0c12"
     },
     {
-      "name": "psutil", "version": "8.0.0", "tier": 1, "rust": false,
+      "name": "psutil",
+      "version": "8.0.0",
+      "tier": 1,
+      "rust": false,
       "git": "https://github.com/giampaolo/psutil.git",
       "rev": "380bd2b59c67b0e1b04bbf3a90b11744f4f96644"
     },
     {
-      "name": "watchfiles", "version": "1.3.0", "tier": 2, "rust": true,
+      "name": "watchfiles",
+      "version": "1.3.0",
+      "tier": 2,
+      "rust": true,
       "sdist": "https://files.pythonhosted.org/packages/b3/68/e6aa0b77d217b31f8f486ec0cdfe5e00e6e38dc0be657e7d85819b9faf0a/watchfiles-1.3.0.tar.gz",
       "sha256": "99aee4a07847c06820765fd7b1b49ceac4f3f711ccb7d104655a33231de1c207"
     },
     {
-      "name": "httptools", "version": "0.8.0", "tier": 2, "rust": false,
+      "name": "httptools",
+      "version": "0.8.0",
+      "tier": 2,
+      "rust": false,
       "sdist": "https://files.pythonhosted.org/packages/43/e5/d471fcb0e14523fe1c3f4ba58ca52480e7bd70ad7109a3846bc75892f7fb/httptools-0.8.0.tar.gz",
       "sha256": "6b2a32f18d97e16e90827d7a819ffa8dbd8cc245fc4e1fa9d1095b54ef4bd999"
     },
     {
-      "name": "cffi", "version": "2.1.1", "tier": 3, "rust": false,
+      "name": "cffi",
+      "version": "2.1.1",
+      "tier": 3,
+      "rust": false,
       "sdist": "https://files.pythonhosted.org/packages/9e/ef/008a1939e372c06329a3fce4279c02f328488f3526744906eeec3da7ad5f/cffi-2.1.1.tar.gz",
       "sha256": "dd31f52ea1086513bb9df30f8fcee9b8918323ae067a3d5b78bc826a000712be",
-      "deps": ["libffi-3.4.4-3"],
-      "environment": "CFLAGS=\"$CFLAGS -I$DEPS_DIR/include\" LDFLAGS=\"$LDFLAGS -L$DEPS_DIR/lib\""
+      "deps": [
+        "libffi-3.4.4-3"
+      ],
+      "prepare": true
     },
     {
-      "name": "cryptography", "version": "50.0.2", "tier": 3, "rust": true,
+      "name": "cryptography",
+      "version": "50.0.2",
+      "tier": 3,
+      "rust": true,
       "sdist": "https://files.pythonhosted.org/packages/9d/af/182eb91b0df3fe75c4d9f26fe70684569566745f6ba7e5c9c73a862c5252/cryptography-50.0.2.tar.gz",
       "sha256": "7b46165bb56eb4704e2eaaf86f3c940d19154535d9b0ca7d6d590b04060e00d5",
-      "deps": ["openssl-3.5.9-0"],
-      "environment": "OPENSSL_DIR=\"$DEPS_DIR\" CFLAGS=\"$CFLAGS -I$DEPS_DIR/include\" LDFLAGS=\"$LDFLAGS -L$DEPS_DIR/lib\""
+      "deps": [
+        "openssl-3.5.9-0"
+      ],
+      "environment": "OPENSSL_DIR=\"$DEPS_DIR\"",
+      "prepare": true
     },
     {
-      "name": "pillow", "version": "13.0.0", "tier": 3, "rust": false,
+      "name": "pillow",
+      "version": "13.0.0",
+      "tier": 3,
+      "rust": false,
       "sdist": "https://files.pythonhosted.org/packages/ce/a4/9cc30690a394a8305e8be4c9036aa16d0dfddadd09079860b582f562496d/pillow-13.0.0.tar.gz",
       "sha256": "cdcd1ba258178f7356d74170c9a81ba4eab6a5d55748bc402a5a2a6fe6be3510",
-      "config_settings": "jpeg=disable",
-      "note": "Built without JPEG (no libjpeg for Android in this pipeline yet); PNG/zlib only."
+      "config_settings": "raqm=disable imagequant=disable platform-guessing=disable",
+      "note": "Built with zlib (NDK) and a static libjpeg-turbo 3.2.1; no freetype/webp/tiff/raqm.",
+      "prepare": true,
+      "before_all": "true"
     }
   ],
   "not_built": [
-    {"name": "pillow-heif", "version": "1.8.1", "reason": "needs libheif for Android; HEIC input only"},
-    {"name": "firecrawl-anydoc", "version": "0.2.4", "reason": "native document extractor; PDF/Office reading disabled on Android"}
+    {
+      "name": "pillow-heif",
+      "version": "1.8.1",
+      "reason": "needs libheif for Android; HEIC input only"
+    },
+    {
+      "name": "firecrawl-anydoc",
+      "version": "0.2.4",
+      "reason": "native document extractor; PDF/Office reading disabled on Android"
+    }
   ]
 }

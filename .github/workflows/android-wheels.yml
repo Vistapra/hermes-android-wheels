@@ -7,10 +7,6 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths:
-      - packages.json
-      - scripts/**
-      - .github/workflows/android-wheels.yml
 
 permissions:
   contents: read

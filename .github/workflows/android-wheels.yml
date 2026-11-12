@@ -84,6 +84,14 @@ jobs:
             --output-dir wheelhouse "$RUNNER_TEMP/src" 2>&1 | tee "$RUNNER_TEMP/build.log"
           ls -l wheelhouse
 
+      # Android resolves an extension's Py* symbols only through its own DT_NEEDED entries.
+      - name: Link extensions against libpython
+        run: |
+          python -m pip install --quiet patchelf wheel
+          for w in wheelhouse/*.whl; do
+            python scripts/repair_android_wheel.py "$w" libpython3.14.so
+          done
+
       # Job logs need a GitHub login to read; keep the tail of a failed build so the release job
       # can attach it.
       - name: Keep failed build log
